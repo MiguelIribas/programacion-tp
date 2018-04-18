@@ -8,6 +8,5 @@ namespace TrabajoPractico.Clases
 {
     public class Carta
     {
-        public string Cami { get; set; }
     }
 }
