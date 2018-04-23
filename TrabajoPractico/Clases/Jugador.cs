@@ -8,5 +8,12 @@ namespace TrabajoPractico.Clases
 {
     public class Jugador
     {
+        public int IDJugador { get; set; }
+        public int IDConexion { get; set; }
+        public string Nombre { get; set; }
+        public bool Turno { get; set; }
+        public List<Carta> CartasJugador { get; set; }
+        
+ 
     }
 }

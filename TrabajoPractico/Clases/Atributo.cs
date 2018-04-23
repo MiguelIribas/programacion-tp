@@ -6,12 +6,9 @@ using System.Threading.Tasks;
 
 namespace TrabajoPractico.Clases
 {
-    public class Mazo
+    public class Atributo
     {
-        public int IDMazo { get; set; }
         public string Nombre { get; set; }
-        public List<Carta> Cartas { get; set; } 
-
-       
+        public decimal Valor { get; set; }
     }
 }

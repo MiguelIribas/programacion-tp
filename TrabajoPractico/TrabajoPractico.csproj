@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Clases\Atributo.cs" />
     <Compile Include="Clases\Carta.cs" />
     <Compile Include="Clases\Juego.cs" />
     <Compile Include="Clases\Jugador.cs" />
