@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace TrabajoPractico.Clases
 {
     public class Juego
@@ -11,11 +12,15 @@ namespace TrabajoPractico.Clases
         public List<Partida> Partidas { get; set; }
         public List<Mazo> Mazos { get; set; }
         public List<Jugador> Jugadores { get; set; }
+        
 
-        public void EmpezarJuego(Partida Partida)
+        public void EmpezarJuego(Partida partida)
         {
-            Partida.MezclarMazo();
-            Partida.RepartirMazo();
+            partida.MezclarMazo(partida.Mazo.Cartas);
+            var jugador1 = partida.JugadoresPartida.First();
+            var jugador2 = partida.JugadoresPartida.Last();
+            partida.RepartirMazo(partida.Mazo, jugador1, jugador2);
+            
         }
 
         public void EmpezarPartida(string NombreJugador, int IDConexion, Mazo Mazo, string NombrePartida)

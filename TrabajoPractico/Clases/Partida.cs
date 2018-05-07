@@ -25,14 +25,40 @@ namespace TrabajoPractico.Clases
             return this;
         }
 
-        public void MezclarMazo()
+        public List<Carta> MezclarMazo(List<Carta> cartas)
         {
+            List<Carta> arr = cartas;
+            List<Carta> arrDes = new List<Carta>();
+
+            Random randNum = new Random();
+
+            while (arr.Count > 0)
+            {
+                int val = randNum.Next(0, arr.Count - 1);
+                arrDes.Add(arr[val]);
+                arr.RemoveAt(val);
+            }
+
+            return arrDes;
 
         }
 
-        public void RepartirMazo()
+        public void RepartirMazo(Mazo mazo, Jugador jugador1, Jugador jugador2)
         {
-
+            var elementos = mazo.Cartas.Count;
+            
+            foreach (var item in mazo.Cartas)
+            {
+                if (elementos/2 <= elementos)
+                {
+                    jugador1.CartasJugador.Add(item);
+                }
+                else
+                {
+                    jugador2.CartasJugador.Add(item);
+                }
+            }
+            
         }
 
 
