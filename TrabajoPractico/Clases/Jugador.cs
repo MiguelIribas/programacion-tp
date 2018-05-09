@@ -11,7 +11,6 @@ namespace TrabajoPractico.Clases
         public int IDJugador { get; set; }
         public int IDConexion { get; set; }
         public string Nombre { get; set; }
-        public bool Turno { get; set; }
         public List<Carta> CartasJugador { get; set; }
         
  
