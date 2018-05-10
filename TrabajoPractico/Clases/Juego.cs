@@ -54,42 +54,63 @@ namespace TrabajoPractico.Clases
 
         public Jugador CompararCartas(Carta Carta1, Carta Carta2, Jugador jugador1, Jugador jugador2, Partida partida)
         {
+            Jugador JugadorGanador = new Jugador(); //En esta variable se va a guardar al jugador que gana en cada caso, no deja retornar antes del break.
+
             switch (Carta1.Tipo)
             {
                 case TipoCarta.Roja:
-                    if (Carta2.Tipo==TipoCarta.Amarilla)
+                    switch (Carta2.Tipo)
                     {
-                        //le roba 1
-                    }
-                    else
-                    {
-                        jugador1.CartasJugador.Add(Carta1);
-                        jugador1.CartasJugador.RemoveAt(0);
-                        jugador1.CartasJugador.Add(jugador2.CartasJugador[0]);
-                        jugador1.CartasJugador.Add(jugador2.CartasJugador[1]);
-                        jugador2.CartasJugador.RemoveAt(0);
-                        jugador2.CartasJugador.RemoveAt(1);
-                        return jugador1;                        
+                        case TipoCarta.Normal: //J1: Carta roja,J2: Carta normal --> El J1 le roba al J2 la carta que tiene y la primera del mazo, y elimina la carta roja.        
+                            jugador1.CartasJugador.RemoveAt(0);     
+                            jugador1.CartasJugador.Add(jugador2.CartasJugador[0]);
+                            jugador1.CartasJugador.Add(jugador2.CartasJugador[1]);
+                            jugador2.CartasJugador.RemoveAt(0);
+                            jugador2.CartasJugador.RemoveAt(1);
+                            JugadorGanador = jugador1;
+                            break;
+
+                        case TipoCarta.Amarilla: //J1: Carta roja, J2: Carta amarilla --> El J1 le roba al J2 la primera del mazo, y se eliminan las cartas roja y amarilla.
+                            jugador1.CartasJugador.RemoveAt(0);
+                            jugador1.CartasJugador.Add(jugador2.CartasJugador[1]);
+                            jugador2.CartasJugador.RemoveAt(0);
+                            JugadorGanador = jugador1;
+                            break;
+
+                        case TipoCarta.Especial:
+                            break;
+
                     }
                     break;
 
                 case TipoCarta.Amarilla:
-                    if (Carta2.Tipo == TipoCarta.Roja)
+                    switch (Carta2.Tipo)
                     {
-                        //le saca 1
-                    }
-                    else
-                    {
-                        //le roba 1
+                        case TipoCarta.Normal: // J1: Carta amarilla, J2: Carta Normal --> El J1 le roba al J2 la carta que tiene, y elimina la carta amarilla.
+                            jugador1.CartasJugador.RemoveAt(0);
+                            jugador1.CartasJugador.Add(jugador2.CartasJugador[0]);
+                            jugador2.CartasJugador.RemoveAt(0);
+                            JugadorGanador = jugador1;
+                            break;
+
+                        case TipoCarta.Roja: //J1: Carta amarilla, J2: Carta roja --> El J2 le roba al J1 la primera del mazo, y se eliminan las cartas rojas y amarilla.
+                            jugador2.CartasJugador.RemoveAt(0);
+                            jugador2.CartasJugador.Add(jugador1.CartasJugador[1]);
+                            jugador1.CartasJugador.RemoveAt(0);
+                            JugadorGanador = jugador2;
+                            break;
+
+                        case TipoCarta.Especial:
+                            break;
                     }
                     break;
 
                 case TipoCarta.Normal:
                     switch (Carta2.Tipo)
                     {
-                        case TipoCarta.Normal:
+                        case TipoCarta.Normal: //Aca deberia dejar elegir los atributos, hacer un metodo aparte.
 
-                            Atributo Atributo = new Atributo();//despues vemos
+                            Atributo Atributo = new Atributo(); //despues vemos
                             var Turno = partida.DevolverTurno();
 
                             if (Turno==jugador1)
@@ -127,23 +148,44 @@ namespace TrabajoPractico.Clases
                                     }
                                 }
                             }
-                            
+                            break;
 
+                        case TipoCarta.Roja: // J1: Carta normal, J2: Carta roja --> El J2 le roba al J1 la carta que tiene y la primera del mazo, y se elimina la carta roja.
+                            jugador2.CartasJugador.RemoveAt(0);
+                            jugador2.CartasJugador.Add(jugador1.CartasJugador[0]);
+                            jugador2.CartasJugador.Add(jugador1.CartasJugador[1]);
+                            jugador1.CartasJugador.RemoveAt(0);
+                            jugador1.CartasJugador.RemoveAt(1);
+                            JugadorGanador = jugador2;
                             break;
-                        case TipoCarta.Roja:
-                            //le saca 2
+
+                        case TipoCarta.Amarilla: //J1: Carta normal, J2: Carta amarilla --> El J2 le roba al J1 la carta que tiene, y se elimina la carta amarilla.
+                            jugador2.CartasJugador.RemoveAt(0);
+                            jugador2.CartasJugador.Add(jugador1.CartasJugador[0]);
+                            jugador1.CartasJugador.RemoveAt(0);
+                            JugadorGanador = jugador2;
                             break;
-                        case TipoCarta.Amarilla:
-                            //le saca 1
-                            break;
-                        default:
+
+                        case TipoCarta.Especial:
+                            //
                             break;
                     }
                     break;
 
-                default:
+                case TipoCarta.Especial:
+                    switch (Carta2.Tipo)
+                    {
+                        case TipoCarta.Normal:
+                            break;
+                        case TipoCarta.Roja:
+                            break;
+                        case TipoCarta.Amarilla:
+                            break;
+                    }
                     break;
             }
+
+            return JugadorGanador;
         }
 
     

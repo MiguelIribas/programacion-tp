@@ -8,7 +8,7 @@ namespace TrabajoPractico.Clases
 {
     public enum TipoCarta
     {
-        Normal,Roja,Amarilla
+        Normal,Roja,Amarilla,Especial
     }
 
     public class Carta
