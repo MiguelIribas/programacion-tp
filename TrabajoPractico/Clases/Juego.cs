@@ -51,6 +51,7 @@ namespace TrabajoPractico.Clases
             {
                 if (item.Nombre==NombrePartida)
                 {
+                    item.Estado = EstadoPartida.Ocupada;
                     item.JugadoresPartida.Add(Jugador2);
                     this.EmpezarJuego(item);
                 }

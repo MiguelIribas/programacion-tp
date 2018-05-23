@@ -1,14 +1,16 @@
-﻿using System;
+﻿using Microsoft.AspNet.SignalR;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using TrabajoPractico.Clases;
 
-namespace TrabajoPractico.Web.Hub
+namespace TrabajoPractico.Web.Hubs
 {
-    public class JuegoHub
+    public class JuegoHub:Hub
     {
 
-        /*private static Juego juego = new Juego();
+        private static Juego juego = new Juego();
 
         public void CrearPartida(string usuario, string partida, string mazo)
         {
@@ -57,6 +59,6 @@ namespace TrabajoPractico.Web.Hub
                 Clients.Client(jugada.connectionIdPerdedor).perder();
             }
         }
-        */
+        
     }
 }

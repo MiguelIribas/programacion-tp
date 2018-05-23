@@ -6,11 +6,15 @@ using System.Threading.Tasks;
 
 namespace TrabajoPractico.Clases
 {
+    public enum EstadoPartida
+    {
+        Disponible,Ocupada,Finalizada
+    }
     public class Partida
     {
         public int IDPartida { get; set; }
         public string Nombre { get; set; }
-        public bool Estado { get; set; }
+        public EstadoPartida Estado { get; set; }
         public Jugador Turno { get; set; }
         public List<Jugador> JugadoresPartida { get; set; }
         public Mazo Mazo { get; set; }
@@ -19,7 +23,7 @@ namespace TrabajoPractico.Clases
         {
             this.IDPartida = IDPartida;
             this.Nombre = Nombre;
-            this.Estado = true;
+            this.Estado = EstadoPartida.Disponible;
             this.Turno = Jugador1;
             this.JugadoresPartida.Add(Jugador1);
             this.Mazo = Mazo;
