@@ -24,6 +24,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -145,8 +146,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Clases\Startup.cs" />
-    <Compile Include="Hub\JuegoHub.cs" />
+    <Compile Include="Hubs\JuegoHub.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TrabajoPractico\TrabajoPractico.Logica.csproj">
+      <Project>{7d3d364d-f682-465e-ab44-cfaac70b720c}</Project>
+      <Name>TrabajoPractico.Logica</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

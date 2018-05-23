@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,7 +23,10 @@ namespace TrabajoPractico.Clases
             partida.RepartirMazo(partida.Mazo, jugador1, jugador2);
             //mostrar cartas graficamente y atributos
         }
-         
+        
+        //agregar mazo y obtener mazo
+        //obtener partida
+
         public Jugador CrearJugador (string Nombre,int IDConexion)
         {
             var Jugador = new Jugador() { IDConexion = IDConexion, Nombre = Nombre, IDJugador = Jugadores.Count + 1 };
@@ -30,7 +34,7 @@ namespace TrabajoPractico.Clases
             return Jugador;
         }
 
-        public void IniciarPartida(string NombreJugador, int IDConexion, Mazo Mazo, string NombrePartida)
+        public void AgregarPartida(string NombreJugador, int IDConexion, Mazo Mazo, string NombrePartida) //ver porque en hub mazo tiene que ser string
         {
             var Jugador1 = this.CrearJugador(NombreJugador, IDConexion);
             var IDPartida = Partidas.Count + 1;
@@ -201,9 +205,17 @@ namespace TrabajoPractico.Clases
              }
              */
             return JugadorGanador;
-            
+
         }
 
-    
+        /*var lines = File.ReadAllLines(@"D:\prueba.txt");
+
+       foreach (var line in lines)
+       {
+           // Lógica acá
+       } */
+
+
+
     }
 }
