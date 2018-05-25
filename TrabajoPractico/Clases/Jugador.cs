@@ -12,7 +12,11 @@ namespace TrabajoPractico.Clases
         public int IDConexion { get; set; }
         public string Nombre { get; set; }
         public List<Carta> CartasJugador { get; set; }
-        
+
+        public Jugador()
+        {
+            this.CartasJugador = new List<Carta>();
+        }
  
     }
 }

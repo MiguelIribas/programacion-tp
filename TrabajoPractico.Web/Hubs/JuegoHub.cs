@@ -9,7 +9,7 @@ namespace TrabajoPractico.Web.Hubs
 {
     public class JuegoHub:Hub
     {
-
+        /*
         private static Juego juego = new Juego();
 
         public void CrearPartida(string usuario, string partida, string mazo)
@@ -26,7 +26,6 @@ namespace TrabajoPractico.Web.Hubs
 
             Clients.Client(jugador1.ConnectionId).dibujarTablero(jugador1, jugador2, partidaAUnirse.Mazo);
             Clients.Client(jugador2.ConnectionId).dibujarTablero(jugador1, jugador2, partidaAUnirse.Mazo);
-
         }
 
         public void ObtenerPartidas()
@@ -41,6 +40,8 @@ namespace TrabajoPractico.Web.Hubs
 
         public void Cantar(string idAtributo, string idCarta)
         {
+
+            
             if (jugada.connectionIdGanador == Context.ConnectionId)
             {
                 Clients.Caller.ganarMano(resultado, false);
@@ -59,6 +60,6 @@ namespace TrabajoPractico.Web.Hubs
                 Clients.Client(jugada.connectionIdPerdedor).perder();
             }
         }
-        
+        */
     }
 }
