@@ -14,19 +14,27 @@ namespace TrabajoPractico.Clases
         public List<Mazo> Mazos { get; set; }
         public List<Jugador> Jugadores { get; set; }
 
-
-        public void AgregarPartida(string NombreJugador, int IDConexion, Mazo Mazo, string NombrePartida) //ver porque en hub mazo tiene que ser string
+        public Juego()
         {
-            var Jugador1 = this.CrearJugador(NombreJugador, IDConexion);
+            this.Jugadores = new List<Jugador>();
+            this.Mazos = new List<Mazo>();
+            this.Partidas = new List<Partida>();
+        }
+
+        public void AgregarPartida(string nombrejugador, string mazo, string nombrepartida) //ver porque en hub mazo tiene que ser string
+        {
+            var Jugador1 = Jugadores.Where(x => x.Nombre == nombrejugador).Single();
             var IDPartida = Partidas.Count + 1;
-            var Partida1 = new Partida().CrearPartida(Jugador1, NombrePartida, Mazo, IDPartida);
+            var Mazo = Mazos.Where(x => x.Nombre == mazo).Single();
+
+            var Partida1 = new Partida().CrearPartida(Jugador1, nombrepartida, Mazo, IDPartida);
 
             this.Partidas.Add(Partida1);
         }
 
-        public void UnirPartida(string NombreJugador, int IDConexion, string NombrePartida)
+        public void UnirPartida(string NombreJugador, string IDConexion, string NombrePartida)
         {
-            var Jugador2 = this.CrearJugador(NombreJugador, IDConexion);
+            var Jugador2 = Jugadores.Where(x => x.Nombre == NombreJugador).Single();
 
             foreach (var item in Partidas)
             {
@@ -36,11 +44,14 @@ namespace TrabajoPractico.Clases
                     item.JugadoresPartida.Add(Jugador2);                    
                     this.ValidarPartida(item);
                 }
-                /*else
-                {
-                    //algo deberia hacer
-                }*/
+                
             }
+        }
+
+        public Partida BuscarPartidaPorNombre(string partida)
+        {
+            var Partida = Partidas.Where(x => x.Nombre == partida).Single();
+            return Partida;
         }
 
         public bool ValidarPartida(Partida partida)
@@ -63,11 +74,11 @@ namespace TrabajoPractico.Clases
             //mostrar cartas graficamente y atributos
         }
         
-        public Jugador CrearJugador (string Nombre,int IDConexion)
+        public void CrearJugador (string Nombre,string IDConexion)
         {
             var Jugador = new Jugador() { IDConexion = IDConexion, Nombre = Nombre, IDJugador = Jugadores.Count + 1 };
             Jugadores.Add(Jugador);
-            return Jugador;
+            
         }
        
         public List<Partida> ObtenerPartidas()

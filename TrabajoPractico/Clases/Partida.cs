@@ -71,13 +71,13 @@ namespace TrabajoPractico.Clases
             return Jugador.CartasJugador.First();
         }
 
-        public int CompararCartas(int IDConexion, string Atributo)
+        public string CompararCartas(string IDConexion, string Atributo)
         {
             var jugador1 = this.JugadoresPartida.Where(x => x.IDConexion == IDConexion).Single();
             var jugador2 = this.JugadoresPartida.Where(x => x.IDConexion != IDConexion).Single();
             var Carta1 = jugador1.CartasJugador.First();
             var Carta2 = jugador2.CartasJugador.First();
-            int JugadorGanador = 0; //En esta variable se va a guardar al jugador que gana en cada caso, no deja retornar antes del break.
+            string JugadorGanador = ""; //En esta variable se va a guardar al jugador que gana en cada caso, no deja retornar antes del break.
 
             switch (Carta1.Tipo)
             {

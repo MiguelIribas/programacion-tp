@@ -132,11 +132,19 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\img\bg.jpg" />
+    <Content Include="Content\img\star.png" />
+    <Content Include="Index.html" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="scripts\classie.js" />
+    <Content Include="scripts\game.js" />
+    <Content Include="scripts\index.js" />
+    <Content Include="scripts\jquery-1.6.4.js" />
+    <Content Include="scripts\jquery-1.6.4.min.js" />
     <Content Include="scripts\jquery-3.3.1.js" />
     <Content Include="scripts\jquery-3.3.1.min.js" />
     <Content Include="scripts\jquery-3.3.1.slim.js" />
@@ -153,8 +161,14 @@
   <ItemGroup>
     <Content Include="scripts\ai.0.22.9-build00167.js" />
     <Content Include="scripts\ai.0.22.9-build00167.min.js" />
+    <Content Include="scripts\jquery.baraja.js" />
+    <Content Include="scripts\jquery.signalR-2.2.0.js" />
+    <Content Include="scripts\jquery.signalR-2.2.0.min.js" />
     <Content Include="scripts\jquery.signalR-2.2.3.js" />
     <Content Include="scripts\jquery.signalR-2.2.3.min.js" />
+    <Content Include="scripts\main.js" />
+    <Content Include="scripts\notificationFx.js" />
+    <Content Include="scripts\npm.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -167,6 +181,11 @@
       <Project>{7d3d364d-f682-465e-ab44-cfaac70b720c}</Project>
       <Name>TrabajoPractico.Logica</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Browsers\" />
+    <Folder Include="Content\css\" />
+    <Folder Include="scripts\vendor\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
