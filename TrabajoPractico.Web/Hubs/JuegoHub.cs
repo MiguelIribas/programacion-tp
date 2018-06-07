@@ -43,7 +43,8 @@ namespace TrabajoPractico.Web.Hubs
 
         public void ObtenerMazos()
         {
-            Clients.Caller.agregarMazos(new List<string>() { "Mazo 1" });
+            Clients.Caller.agregarMazos(juego.ObtenerMazos());
+            
         }
 
         public void Cantar(string idAtributo, string idCarta)

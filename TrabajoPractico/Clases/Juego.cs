@@ -17,7 +17,7 @@ namespace TrabajoPractico.Clases
         public Juego()
         {
             this.Jugadores = new List<Jugador>();
-            this.Mazos = new List<Mazo>();
+            this.Mazos = ObtenerMazos();
             this.Partidas = new List<Partida>();
         }
 
@@ -88,17 +88,28 @@ namespace TrabajoPractico.Clases
        
         public List<Mazo> ObtenerMazos()
         {
+            var mazos = new List<Mazo>();
+
+            var carpetasMazos = Directory.GetDirectories(@"C:");
+
+            foreach (var mazo in carpetasMazos)
+            {
+                var lines = File.ReadAllLines(mazo + "/instrucciones.txt");
+
+                foreach (var line in lines)
+                {
+                    // Lógica acá
+                }
+            }
+            /*var lines = File.ReadAllLines(@"D:\prueba.txt");
+
+      foreach (var line in lines)
+     {
+         // Lógica acá
+     } */
+
             return Mazos;
         }
-
-        /*var lines = File.ReadAllLines(@"D:\prueba.txt");
-
-       foreach (var line in lines)
-       {
-           // Lógica acá
-       } */
-
-
 
     }
 }
