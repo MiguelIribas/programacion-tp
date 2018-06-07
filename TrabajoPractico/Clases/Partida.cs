@@ -31,7 +31,7 @@ namespace TrabajoPractico.Clases
             return this;
         }
      
-        public void MezclarMazo()
+        private void MezclarMazo()
         {
             List<Carta> CartasOriginal = Mazo.Cartas;
             List<Carta> CartasMezcladas = new List<Carta>();
@@ -48,7 +48,7 @@ namespace TrabajoPractico.Clases
            // return Mazo.Cartas;
         }
 
-        public void RepartirMazo(Mazo mazo, Jugador jugador1, Jugador jugador2)
+        private void RepartirMazo(Mazo mazo, Jugador jugador1, Jugador jugador2)
         {
             var elementos = mazo.Cartas.Count;
             int contador=0;
@@ -70,13 +70,52 @@ namespace TrabajoPractico.Clases
         {
             return Jugador.CartasJugador.First();
         }
+        
+        private void MoverCartas(string idJugadorGanador, int resultadoMano)
+        {
+            var jugadorGanador = this.JugadoresPartida.Where(x => x.IDConexion == idJugadorGanador).Single();
+            var jugadorPerdedor = this.JugadoresPartida.Where(x => x.IDConexion != idJugadorGanador).Single();
 
-        public string CompararCartas(string IDConexion, string Atributo)
+            switch (resultadoMano)
+            {
+                case 0:
+                    jugadorGanador.CartasJugador.Add(jugadorGanador.CartasJugador[0]);
+                    jugadorGanador.CartasJugador.RemoveAt(0);
+                    jugadorGanador.CartasJugador.Add(jugadorPerdedor.CartasJugador[0]);
+                    jugadorPerdedor.CartasJugador.RemoveAt(0);
+                    break;
+                case 1:
+                    jugadorGanador.CartasJugador.RemoveAt(0);
+                    jugadorGanador.CartasJugador.Add(jugadorPerdedor.CartasJugador[0]);
+                    jugadorPerdedor.CartasJugador.RemoveAt(0);
+                    break;
+                case 2:
+                    jugadorGanador.CartasJugador.RemoveAt(0);
+                    jugadorGanador.CartasJugador.Add(jugadorPerdedor.CartasJugador[0]);
+                    jugadorGanador.CartasJugador.Add(jugadorPerdedor.CartasJugador[1]);
+                    jugadorPerdedor.CartasJugador.RemoveAt(0);
+                    jugadorPerdedor.CartasJugador.RemoveAt(1);
+                    break;
+                case 3:
+                    jugadorGanador.CartasJugador.RemoveAt(0);
+                    jugadorGanador.CartasJugador.Add(jugadorPerdedor.CartasJugador[1]);
+                    jugadorPerdedor.CartasJugador.RemoveAt(0);
+                    break;
+                case 4:
+                    break;
+                default:
+                    break;
+            }
+
+        }
+
+        private string CompararCartas(string IDConexion, string Atributo)
         {
             var jugador1 = this.JugadoresPartida.Where(x => x.IDConexion == IDConexion).Single();
             var jugador2 = this.JugadoresPartida.Where(x => x.IDConexion != IDConexion).Single();
             var Carta1 = jugador1.CartasJugador.First();
             var Carta2 = jugador2.CartasJugador.First();
+            int resultado = 0;
             string JugadorGanador = ""; //En esta variable se va a guardar al jugador que gana en cada caso, no deja retornar antes del break.
 
             switch (Carta1.Tipo)
@@ -85,22 +124,27 @@ namespace TrabajoPractico.Clases
                     switch (Carta2.Tipo)
                     {
                         case TipoCarta.Normal: //J1: Carta roja,J2: Carta normal --> El J1 le roba al J2 la carta que tiene y la primera del mazo, y elimina la carta roja.        
-                            jugador1.CartasJugador.RemoveAt(0);
-                            jugador1.CartasJugador.Add(jugador2.CartasJugador[0]);
-                            jugador1.CartasJugador.Add(jugador2.CartasJugador[1]);
-                            jugador2.CartasJugador.RemoveAt(0);
-                            jugador2.CartasJugador.RemoveAt(1);
+                        //    jugador1.CartasJugador.RemoveAt(0);
+                        //    jugador1.CartasJugador.Add(jugador2.CartasJugador[0]);
+                        //    jugador1.CartasJugador.Add(jugador2.CartasJugador[1]);
+                        //    jugador2.CartasJugador.RemoveAt(0);
+                        //    jugador2.CartasJugador.RemoveAt(1);
                             JugadorGanador = jugador1.IDConexion;
+                            resultado = 2;
+                            this.MoverCartas(JugadorGanador,resultado);
                             break;
 
                         case TipoCarta.Amarilla: //J1: Carta roja, J2: Carta amarilla --> El J1 le roba al J2 la primera del mazo, y se eliminan las cartas roja y amarilla.
-                            jugador1.CartasJugador.RemoveAt(0);
-                            jugador1.CartasJugador.Add(jugador2.CartasJugador[1]);
-                            jugador2.CartasJugador.RemoveAt(0);
+                            //jugador1.CartasJugador.RemoveAt(0);
+                            //jugador1.CartasJugador.Add(jugador2.CartasJugador[1]);
+                            //jugador2.CartasJugador.RemoveAt(0);
+                            resultado = 3;
                             JugadorGanador = jugador1.IDConexion;
+                            this.MoverCartas(JugadorGanador, resultado);
                             break;
 
                         case TipoCarta.Especial:
+                            resultado = 4;
                             break;
 
                     }
@@ -110,20 +154,25 @@ namespace TrabajoPractico.Clases
                     switch (Carta2.Tipo)
                     {
                         case TipoCarta.Normal: // J1: Carta amarilla, J2: Carta Normal --> El J1 le roba al J2 la carta que tiene, y elimina la carta amarilla.
-                            jugador1.CartasJugador.RemoveAt(0);
-                            jugador1.CartasJugador.Add(jugador2.CartasJugador[0]);
-                            jugador2.CartasJugador.RemoveAt(0);
+                            //jugador1.CartasJugador.RemoveAt(0);
+                            //jugador1.CartasJugador.Add(jugador2.CartasJugador[0]);
+                            //jugador2.CartasJugador.RemoveAt(0);
+                            resultado = 1;
                             JugadorGanador = jugador1.IDConexion;
+                            this.MoverCartas(JugadorGanador, resultado);
                             break;
 
                         case TipoCarta.Roja: //J1: Carta amarilla, J2: Carta roja --> El J2 le roba al J1 la primera del mazo, y se eliminan las cartas rojas y amarilla.
-                            jugador2.CartasJugador.RemoveAt(0);
-                            jugador2.CartasJugador.Add(jugador1.CartasJugador[1]);
-                            jugador1.CartasJugador.RemoveAt(0);
+                            //jugador2.CartasJugador.RemoveAt(0);
+                            //jugador2.CartasJugador.Add(jugador1.CartasJugador[1]);
+                            //jugador1.CartasJugador.RemoveAt(0);
+                            resultado = 3;
                             JugadorGanador = jugador1.IDConexion;
+                            this.MoverCartas(JugadorGanador, resultado);
                             break;
 
                         case TipoCarta.Especial:
+                            resultado = 4;
                             break;
                     }
                     break;
@@ -136,6 +185,7 @@ namespace TrabajoPractico.Clases
 
                             decimal atributo1 = 0;
                             decimal atributo2 = 0;
+                            resultado = 0;
 
                             foreach (var item in Carta1.Atributos) //valor carta 1
                             {
@@ -155,37 +205,43 @@ namespace TrabajoPractico.Clases
 
                             if (atributo1 >= atributo2)
                             {
-                                jugador1.CartasJugador.Add(jugador1.CartasJugador[0]);
-                                jugador1.CartasJugador.RemoveAt(0);
-                                jugador1.CartasJugador.Add(jugador2.CartasJugador[0]);
-                                jugador2.CartasJugador.RemoveAt(0);
+                                //jugador1.CartasJugador.Add(jugador1.CartasJugador[0]);
+                                //jugador1.CartasJugador.RemoveAt(0);
+                                //jugador1.CartasJugador.Add(jugador2.CartasJugador[0]);
+                                //jugador2.CartasJugador.RemoveAt(0);
                                 JugadorGanador = jugador1.IDConexion;
+                                this.MoverCartas(JugadorGanador, resultado);
                             }
                             else
                             {
-                                jugador2.CartasJugador.Add(jugador2.CartasJugador[0]);
-                                jugador2.CartasJugador.RemoveAt(0);
-                                jugador2.CartasJugador.Add(jugador1.CartasJugador[0]);
-                                jugador1.CartasJugador.RemoveAt(0);
+                                //jugador2.CartasJugador.Add(jugador2.CartasJugador[0]);
+                                //jugador2.CartasJugador.RemoveAt(0);
+                                //jugador2.CartasJugador.Add(jugador1.CartasJugador[0]);
+                                //jugador1.CartasJugador.RemoveAt(0);
                                 JugadorGanador = jugador2.IDConexion;
+                                this.MoverCartas(JugadorGanador, resultado);
                             }
 
                             break;
 
                         case TipoCarta.Roja: // J1: Carta normal, J2: Carta roja --> El J2 le roba al J1 la carta que tiene y la primera del mazo, y se elimina la carta roja.
-                            jugador2.CartasJugador.RemoveAt(0);
-                            jugador2.CartasJugador.Add(jugador1.CartasJugador[0]);
-                            jugador2.CartasJugador.Add(jugador1.CartasJugador[1]);
-                            jugador1.CartasJugador.RemoveAt(0);
-                            jugador1.CartasJugador.RemoveAt(1);
+                            //jugador2.CartasJugador.RemoveAt(0);
+                            //jugador2.CartasJugador.Add(jugador1.CartasJugador[0]);
+                            //jugador2.CartasJugador.Add(jugador1.CartasJugador[1]);
+                            //jugador1.CartasJugador.RemoveAt(0);
+                            //jugador1.CartasJugador.RemoveAt(1);
+                            resultado = 2;
                             JugadorGanador = jugador2.IDConexion;
+                            this.MoverCartas(JugadorGanador, resultado);
                             break;
 
                         case TipoCarta.Amarilla: //J1: Carta normal, J2: Carta amarilla --> El J2 le roba al J1 la carta que tiene, y se elimina la carta amarilla.
-                            jugador2.CartasJugador.RemoveAt(0);
-                            jugador2.CartasJugador.Add(jugador1.CartasJugador[0]);
-                            jugador1.CartasJugador.RemoveAt(0);
+                            ////jugador2.CartasJugador.RemoveAt(0);
+                            ////jugador2.CartasJugador.Add(jugador1.CartasJugador[0]);
+                            ////jugador1.CartasJugador.RemoveAt(0);
+                            resultado = 1;
                             JugadorGanador = jugador2.IDConexion;
+                            this.MoverCartas(JugadorGanador, resultado);
                             break;
 
                         case TipoCarta.Especial:
@@ -198,10 +254,13 @@ namespace TrabajoPractico.Clases
                     switch (Carta2.Tipo)
                     {
                         case TipoCarta.Normal:
+                            resultado = 4;
                             break;
                         case TipoCarta.Roja:
+                            resultado = 4;
                             break;
                         case TipoCarta.Amarilla:
+                            resultado = 4;
                             break;
                     }
                     break;
@@ -211,5 +270,43 @@ namespace TrabajoPractico.Clases
 
         }
 
+        public void CantarAtributo(string nombreAtributo, string idCarta)
+        {
+        }
+
+        public void EmpezarJuego()
+        {
+            this.MezclarMazo();
+            //partida.MezclarMazo();
+            var jugador1 = this.JugadoresPartida.First();
+            var jugador2 = this.JugadoresPartida.Last();
+            this.RepartirMazo(this.Mazo, jugador1, jugador2);
+            var atributoElegido = "";
+            int primerJuego = 1;
+            var ganador = "";
+
+            while (this.Estado == EstadoPartida.Ocupada)
+            {
+                if (jugador1.CartasJugador.Count == Mazo.Cartas.Count)
+                {
+                    this.Estado = EstadoPartida.Finalizada;
+                }
+                else
+                {
+                    if (primerJuego == 1)
+                    {
+                        //cantar atributo
+                        ganador = this.CompararCartas(jugador1.IDConexion, atributoElegido);
+                        primerJuego = 2;
+                    }
+                    else
+                    {
+                        //cantar atributo
+                        ganador = this.CompararCartas(ganador, atributoElegido);
+                    }
+                }
+            }
+            //mostrar cartas graficamente y atributos
+        }
     }
 }

@@ -13,7 +13,7 @@ namespace TrabajoPractico.Clases
 
     public class Carta
     {
-        public int Codigo { get; set; }
+        public string IDCarta { get; set; }
         public TipoCarta Tipo { get; set; }
         public List<Atributo> Atributos { get; set; }
     }

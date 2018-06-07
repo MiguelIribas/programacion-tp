@@ -58,20 +58,11 @@ namespace TrabajoPractico.Clases
         {
             if (partida.JugadoresPartida.Count == 2)
             {
-                this.EmpezarJuego(partida);
+                partida.EmpezarJuego();
                 return true;
             }
             else
                 return false; //DISPARAR EVENTO O MENSAJE O LO QUE SEA
-        }
-
-        public void EmpezarJuego(Partida partida)
-        {         
-            partida.MezclarMazo();
-            var jugador1 = partida.JugadoresPartida.First();
-            var jugador2 = partida.JugadoresPartida.Last();
-            partida.RepartirMazo(partida.Mazo, jugador1, jugador2);
-            //mostrar cartas graficamente y atributos
         }
         
         public void CrearJugador (string Nombre,string IDConexion)
@@ -87,16 +78,22 @@ namespace TrabajoPractico.Clases
         }
        
         public List<Mazo> ObtenerMazos()
-        {
+        {  
             return Mazos;
         }
 
-        /*var lines = File.ReadAllLines(@"D:\prueba.txt");
+        /*
 
-       foreach (var line in lines)
-       {
-           // Lógica acá
-       } */
+            var deckFolder = Directory.GetDirectories(@"D:\proyecto-cromix\mazos");
+            foreach (var deck in deckFolder)
+            {
+                var lines = File.ReadAllLines(deck + "\\instrucciones.txt");
+
+                foreach (var line in lines)
+                {
+                    
+                }
+            }*/
 
 
 
