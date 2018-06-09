@@ -31,7 +31,7 @@ namespace TrabajoPractico.Clases
             return this;
         }
      
-        private void MezclarMazo()
+        public void MezclarMazo()
         {
             List<Carta> CartasOriginal = Mazo.Cartas;
             List<Carta> CartasMezcladas = new List<Carta>();
@@ -48,7 +48,7 @@ namespace TrabajoPractico.Clases
            // return Mazo.Cartas;
         }
 
-        private void RepartirMazo(Mazo mazo, Jugador jugador1, Jugador jugador2)
+        public void RepartirMazo(Mazo mazo, Jugador jugador1, Jugador jugador2)
         {
             var elementos = mazo.Cartas.Count;
             int contador=0;

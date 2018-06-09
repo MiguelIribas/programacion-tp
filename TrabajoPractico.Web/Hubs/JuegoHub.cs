@@ -15,8 +15,8 @@ namespace TrabajoPractico.Web.Hubs
         {
             juego.CrearJugador(usuario, Context.ConnectionId);
             juego.AgregarPartida(usuario, mazo, partida);
-             // Notifico a los otros usuarios de la nueva partida.
-
+            // Notifico a los otros usuarios de la nueva partida.
+                        
             Clients.Others.agregarPartida(new { Nombre = partida, Mazo = mazo, Usuario = usuario });
 
             Clients.Caller.esperarJugador();

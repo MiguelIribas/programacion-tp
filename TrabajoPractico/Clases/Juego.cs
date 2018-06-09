@@ -17,11 +17,11 @@ namespace TrabajoPractico.Clases
         public Juego()
         {
             this.Jugadores = new List<Jugador>();
-            this.Mazos = new List<Mazo>();
+            this.Mazos = this.ObtenerMazos();
             this.Partidas = new List<Partida>();
         }
 
-        public void AgregarPartida(string nombrejugador, string mazo, string nombrepartida) //ver porque en hub mazo tiene que ser string
+        public void AgregarPartida(string nombrejugador, string mazo, string nombrepartida)
         {
             var Jugador1 = Jugadores.Where(x => x.Nombre == nombrejugador).Single();
             var IDPartida = Partidas.Count + 1;
@@ -38,7 +38,7 @@ namespace TrabajoPractico.Clases
 
             foreach (var item in Partidas)
             {
-                if (item.Nombre == NombrePartida && item.Estado==EstadoPartida.Disponible) //ver porque no deberia pasar nunca que un jugador quiera a unirse a una partida ocupada, porque no se va a listar en pantalla.
+                if (item.Nombre == NombrePartida && item.Estado==EstadoPartida.Disponible) 
                 {
                     item.Estado = EstadoPartida.Ocupada;
                     item.JugadoresPartida.Add(Jugador2);                    
@@ -78,22 +78,75 @@ namespace TrabajoPractico.Clases
         }
        
         public List<Mazo> ObtenerMazos()
-        {  
-            return Mazos;
-        }
-
-        /*
-
-            var deckFolder = Directory.GetDirectories(@"D:\proyecto-cromix\mazos");
+        {
+            var deckFolder = Directory.GetDirectories(@"E:\Mis documentos\agos\Mazos"); //////PONER DIRECCION
+            
             foreach (var deck in deckFolder)
             {
-                var lines = File.ReadAllLines(deck + "\\instrucciones.txt");
+                var lines = File.ReadAllLines(deck + "\\informacion.txt"); /// Ver como es el txt y que adentro no tenga espacio
+                int contador = 0;
+                List<Atributo> lista = new List<Atributo>();
+                Mazo mazo = new Mazo();
 
                 foreach (var line in lines)
                 {
-                    
+                    var array = line.Split('|');
+
+                    if (contador == 0)
+                    {
+                        mazo.IDMazo = Mazos.Count + 1;
+                        mazo.Nombre = line;
+                        contador = 1;
+                    }
+                    else
+                    {
+                        if (contador == 1)
+                        {
+                            var atributos = array; 
+                            contador = contador + 1;
+
+                            foreach (var item in atributos)
+                            {
+                                Atributo nuevo = new Atributo();
+                                nuevo.Nombre = item;
+
+                                lista.Add(nuevo);
+
+                            }
+
+                        }
+                        else
+                        {
+                            Carta carta = new Carta();
+                            carta.Codigo = array[0];
+                            carta.Nombre = array[1];
+                            carta.Tipo = TipoCarta.Normal;
+                            carta.Atributos = lista;
+                            var valor = 2;
+
+                            foreach (var item in carta.Atributos)
+                            {
+                                if (valor < array.Count())
+                                {
+                                    item.Valor = Convert.ToDecimal(array[valor]);
+                                    valor = valor + 1;
+                                }
+                                
+                            }
+
+                            mazo.Cartas.Add(carta);
+                        }
+                    }
                 }
-            }*/
+
+                Mazos.Add(mazo);
+                
+            }
+
+            return Mazos;
+        }
+
+        
 
 
 
