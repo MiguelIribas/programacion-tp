@@ -19,42 +19,42 @@ namespace Tests
                 {
                     new Carta
                     {
-                        Codigo=1,
+                        Codigo="1",
                         Tipo=TipoCarta.Normal
                     },
                     new Carta
                     {
-                        Codigo=2,
+                        Codigo="2",
                         Tipo=TipoCarta.Normal
                     },
                     new Carta
                     {
-                        Codigo=3,
+                        Codigo="3",
                         Tipo=TipoCarta.Normal
                     },
                     new Carta
                     {
-                        Codigo=4,
+                        Codigo="4",
                         Tipo=TipoCarta.Normal
                     },
                     new Carta
                     {
-                        Codigo=5,
+                        Codigo="5",
                         Tipo=TipoCarta.Normal
                     },
                     new Carta
                     {
-                        Codigo=6,
+                        Codigo="6",
                         Tipo=TipoCarta.Normal
                     },
                     new Carta
                     {
-                        Codigo=7,
+                        Codigo="7",
                         Tipo=TipoCarta.Normal
                     },
                     new Carta
                     {
-                        Codigo=8,
+                        Codigo="8",
                         Tipo=TipoCarta.Normal
                     }
                 }
@@ -65,45 +65,45 @@ namespace Tests
                 Nombre = "Jugadores",
                 IDMazo = 1,
                 Cartas = new List<Carta>
-                {
+                  {
                     new Carta
                     {
-                        Codigo=1,
+                        Codigo="1",
                         Tipo=TipoCarta.Normal
                     },
                     new Carta
                     {
-                        Codigo=2,
+                        Codigo="2",
                         Tipo=TipoCarta.Normal
                     },
                     new Carta
                     {
-                        Codigo=3,
+                        Codigo="3",
                         Tipo=TipoCarta.Normal
                     },
                     new Carta
                     {
-                        Codigo=4,
+                        Codigo="4",
                         Tipo=TipoCarta.Normal
                     },
                     new Carta
                     {
-                        Codigo=5,
+                        Codigo="5",
                         Tipo=TipoCarta.Normal
                     },
                     new Carta
                     {
-                        Codigo=6,
+                        Codigo="6",
                         Tipo=TipoCarta.Normal
                     },
                     new Carta
                     {
-                        Codigo=7,
+                        Codigo="7",
                         Tipo=TipoCarta.Normal
                     },
                     new Carta
                     {
-                        Codigo=8,
+                        Codigo="8",
                         Tipo=TipoCarta.Normal
                     }
                 }
@@ -127,51 +127,51 @@ namespace Tests
                 Nombre = "Jugadores",
                 IDMazo = 1,
                 Cartas = new List<Carta>
-                {
+                  {
                     new Carta
                     {
-                        Codigo=1,
+                        Codigo="1",
                         Tipo=TipoCarta.Normal
                     },
                     new Carta
                     {
-                        Codigo=2,
+                        Codigo="2",
                         Tipo=TipoCarta.Normal
                     },
                     new Carta
                     {
-                        Codigo=3,
+                        Codigo="3",
                         Tipo=TipoCarta.Normal
                     },
                     new Carta
                     {
-                        Codigo=4,
+                        Codigo="4",
                         Tipo=TipoCarta.Normal
                     },
                     new Carta
                     {
-                        Codigo=5,
+                        Codigo="5",
                         Tipo=TipoCarta.Normal
                     },
                     new Carta
                     {
-                        Codigo=6,
+                        Codigo="6",
                         Tipo=TipoCarta.Normal
                     },
                     new Carta
                     {
-                        Codigo=7,
+                        Codigo="7",
                         Tipo=TipoCarta.Normal
                     },
                     new Carta
                     {
-                        Codigo=8,
+                        Codigo="8",
                         Tipo=TipoCarta.Normal
                     }
                 }
             };
 
-            
+
             Partida partida = new Partida();
             {
                 partida.Mazo = Mazo;
@@ -214,7 +214,6 @@ namespace Tests
             Assert.IsFalse(juego.ValidarPartida(partida));
 
         }
-
-
+        
     }
 }

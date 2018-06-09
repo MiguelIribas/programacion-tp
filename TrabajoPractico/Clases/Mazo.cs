@@ -15,6 +15,7 @@ namespace TrabajoPractico.Clases
         public Mazo()
         {
             this.Cartas = new List<Carta>();
+            
         }
     }
 }
