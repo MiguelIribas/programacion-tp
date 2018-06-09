@@ -32,18 +32,25 @@ namespace TrabajoPractico.Web.Hubs
             var jugador1 = partidaAUnirse.JugadoresPartida.First();
             var jugador2 = partidaAUnirse.JugadoresPartida.Last();
 
-            Clients.Client(jugador1.IDConexion).dibujarTablero(jugador1, jugador2, partidaAUnirse.Mazo);
+          //  Jugador, Jugador, Mazo(objects)
+            Jugador: Cartas(Carta[]), Nombre(string)
+            Mazo: Nombre(string), NombreAtributos(string[])
+            Carta: Codigo, Nombre(string)
+
+            jugador1()
+
+            Clients.Client(jugador1.IDConexion).dibujarTablero(new { jugador1.CartasJugador, jugador1.Nombre }, jugador2, partidaAUnirse.Mazo);
             Clients.Client(jugador2.IDConexion).dibujarTablero(jugador1, jugador2, partidaAUnirse.Mazo);
         }
 
         public void ObtenerPartidas()
         {
-            //Clients.Caller.agregarPartidas(partidas);
+            Clients.Caller.agregarPartidas(juego.ObtenerPartidas());
         }
 
         public void ObtenerMazos()
         {
-            Clients.Caller.agregarMazos(juego.ObtenerMazos());
+            Clients.Caller.agregarMazos(juego.NombreMazos());
             
         }
 

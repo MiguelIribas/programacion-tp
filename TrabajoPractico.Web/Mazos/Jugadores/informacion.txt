@@ -1,7 +1,5 @@
 Jugadores
-
 CodigoJugador|Nombre|Ritmo|Regate|Tiro|Defensa|Pase|Fisico
-
 C1|Cristiano Ronaldo|90|90|93|33|82|80
 C2|Messi|89|95|90|26|86|61
 C3|Suarez|82|86|90|42|79|81

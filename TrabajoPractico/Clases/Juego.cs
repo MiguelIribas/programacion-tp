@@ -16,12 +16,9 @@ namespace TrabajoPractico.Clases
 
         public Juego()
         {
+            this.Mazos = new List<Mazo>();
             this.Jugadores = new List<Jugador>();
-<<<<<<< HEAD
             this.Mazos = ObtenerMazos();
-=======
-            this.Mazos = this.ObtenerMazos();
->>>>>>> be7b05c0194fa70a40d64223badd20e86c0daf7d
             this.Partidas = new List<Partida>();
         }
 
@@ -82,27 +79,19 @@ namespace TrabajoPractico.Clases
         }
        
         public List<Mazo> ObtenerMazos()
-        {
-<<<<<<< HEAD
-            var mazos = new List<Mazo>();
+        {                         
+            var deckFolder = Directory.GetDirectories(@"E:\Programacion II\TrabajoPractico\TrabajoPractico.Web\Mazos"); //////PONER DIRECCION
 
-            var carpetasMazos = Directory.GetDirectories(@"C:");
-
-            foreach (var mazo in carpetasMazos)
-            {
-                var lines = File.ReadAllLines(mazo + "/instrucciones.txt");
-=======
-            var deckFolder = Directory.GetDirectories(@"E:\Mis documentos\agos\Mazos"); //////PONER DIRECCION
-            
             foreach (var deck in deckFolder)
             {
                 var lines = File.ReadAllLines(deck + "\\informacion.txt"); /// Ver como es el txt y que adentro no tenga espacio
                 int contador = 0;
-                List<Atributo> lista = new List<Atributo>();
+                List<string> lista = new List<string>();
                 Mazo mazo = new Mazo();
 
                 foreach (var line in lines)
                 {
+
                     var array = line.Split('|');
 
                     if (contador == 0)
@@ -115,18 +104,18 @@ namespace TrabajoPractico.Clases
                     {
                         if (contador == 1)
                         {
-                            var atributos = array; 
+                            var atributos = array;
                             contador = contador + 1;
+                            var posicion = -1;
 
                             foreach (var item in atributos)
                             {
-                                Atributo nuevo = new Atributo();
-                                nuevo.Nombre = item;
-
-                                lista.Add(nuevo);
-
+                                posicion += 1;
+                                if (posicion > 1)
+                                {
+                                    lista.Add(item);
+                                }
                             }
-
                         }
                         else
                         {
@@ -134,8 +123,15 @@ namespace TrabajoPractico.Clases
                             carta.Codigo = array[0];
                             carta.Nombre = array[1];
                             carta.Tipo = TipoCarta.Normal;
-                            carta.Atributos = lista;
+
                             var valor = 2;
+
+                            foreach (var item in lista)
+                            {
+                                Atributo atributo = new Atributo();
+                                atributo.Nombre = item;
+                                carta.Atributos.Add(atributo);
+                            }
 
                             foreach (var item in carta.Atributos)
                             {
@@ -144,38 +140,29 @@ namespace TrabajoPractico.Clases
                                     item.Valor = Convert.ToDecimal(array[valor]);
                                     valor = valor + 1;
                                 }
-                                
                             }
 
                             mazo.Cartas.Add(carta);
                         }
-                    }
+                     }
                 }
 
-                Mazos.Add(mazo);
-                
-            }
-
-            return Mazos;
-        }
-
-        
->>>>>>> be7b05c0194fa70a40d64223badd20e86c0daf7d
-
-                foreach (var line in lines)
-                {
-                    // Lógica acá
+                    Mazos.Add(mazo);
                 }
-            }
-            /*var lines = File.ReadAllLines(@"D:\prueba.txt");
-
-      foreach (var line in lines)
-     {
-         // Lógica acá
-     } */
-
-            return Mazos;
+              
+                return Mazos;
         }
 
+        public List<string> NombreMazos()
+        {
+            List<string> NombreMazos = new List<string>();
+
+            foreach (var item in Mazos)
+            {
+                NombreMazos.Add(item.Nombre);
+            }
+
+            return NombreMazos;
+        }
     }
 }
