@@ -32,15 +32,18 @@ namespace TrabajoPractico.Web.Hubs
             var jugador1 = partidaAUnirse.JugadoresPartida.First();
             var jugador2 = partidaAUnirse.JugadoresPartida.Last();
 
-          //  Jugador, Jugador, Mazo(objects)
-            Jugador: Cartas(Carta[]), Nombre(string)
-            Mazo: Nombre(string), NombreAtributos(string[])
-            Carta: Codigo, Nombre(string)
+            // Jugador, Jugador, Mazo(objects)
+            //Jugador: Cartas(Carta[]), Nombre(string)
+            //Mazo: Nombre(string), NombreAtributos(string[]) - hacer una propiedad en mazo que sea la lista con los nombres y despues en la instancia de mazo dentro del metodo obtenerjuego darle valor 
+            //Carta: Codigo, Nombre(string) lista en carta que solo tenga el codigo y el nombre - hacer metodo en cartas que retorne esa lista 
+            var NombresAtributos = juego.ObtenerNombresAtributos();
 
-            jugador1()
-
-            Clients.Client(jugador1.IDConexion).dibujarTablero(new { jugador1.CartasJugador, jugador1.Nombre }, jugador2, partidaAUnirse.Mazo);
-            Clients.Client(jugador2.IDConexion).dibujarTablero(jugador1, jugador2, partidaAUnirse.Mazo);
+            Clients.Client(jugador1.IDConexion).dibujarTablero(new { listadecartas, jugador1.Nombre },
+                                                                new { listadecartas, jugador2.Nombre },
+                                                                new { partidaAUnirse.Mazo.Nombre, NombresAtributos });
+            Clients.Client(jugador2.IDConexion).dibujarTablero(new { listadecartas, jugador1.Nombre },
+                                                                new { listadecartas, jugador2.Nombre },
+                                                                new { partidaAUnirse.Mazo.Nombre, NombresAtributos });
         }
 
         public void ObtenerPartidas()
@@ -55,7 +58,10 @@ namespace TrabajoPractico.Web.Hubs
         }
 
         public void Cantar(string idAtributo, string idCarta)
-        {            
+        {         
+            Context.ConnectionId   
+            juego.
+
             //if (jugada.connectionIdGanador == Context.ConnectionId)
             //{
             //    Clients.Caller.ganarMano(resultado, false);

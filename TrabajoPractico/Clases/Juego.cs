@@ -13,6 +13,7 @@ namespace TrabajoPractico.Clases
         public List<Partida> Partidas { get; set; }
         public List<Mazo> Mazos { get; set; }
         public List<Jugador> Jugadores { get; set; }
+        //public List<string> NombreAtributos { get; set; }
 
         public Juego()
         {
@@ -20,6 +21,7 @@ namespace TrabajoPractico.Clases
             this.Jugadores = new List<Jugador>();
             this.Mazos = ObtenerMazos();
             this.Partidas = new List<Partida>();
+            this.NombreAtributos = new List<string>();
         }
 
         public void AgregarPartida(string nombrejugador, string mazo, string nombrepartida)
@@ -116,6 +118,7 @@ namespace TrabajoPractico.Clases
                                     lista.Add(item);
                                 }
                             }
+                            this.NombreAtributos = lista;
                         }
                         else
                         {
@@ -146,10 +149,10 @@ namespace TrabajoPractico.Clases
                         }
                      }
                 }
-
                     Mazos.Add(mazo);
                 }
               
+               
                 return Mazos;
         }
 
@@ -164,5 +167,16 @@ namespace TrabajoPractico.Clases
 
             return NombreMazos;
         }
+
+        ///Mazo: Nombre(string), NombreAtributos(string[])
+        ///
+        public List<String> ObtenerNombresAtributos()
+        {
+            return this.NombreAtributos;            
+        }
+
+        
+ 
+
     }
 }
