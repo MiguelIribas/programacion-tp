@@ -10,6 +10,24 @@ $(function () {
         addGameItem(partida);
     };
 
+    //Agregar lo del profe.
+    juego.client.perderManoPorTarjetaAmarilla = function () {
+        perderManoPorTarjeta(false);
+        deshabilitarJuego();
+    };
+
+    juego.client.perderManoPorTarjetaRoja = function () {
+        perderManoPorTarjeta(true);
+        deshabilitarJuego();
+    };
+    juego.client.ganarManoPorTarjetaAmarilla = function () {
+        ganarManoPorTarjeta(false);
+    };
+
+    juego.client.ganarManoPorTarjetaRoja = function () {
+        ganarManoPorTarjeta(true);
+    };
+
     juego.client.agregarPartidas = function (partidas) {
         $.each(partidas, function (index, value) {
             addGameItem(value);

@@ -21,7 +21,7 @@ namespace TrabajoPractico.Clases
             this.Jugadores = new List<Jugador>();
             this.Mazos = ObtenerMazos();
             this.Partidas = new List<Partida>();
-            this.NombreAtributos = new List<string>();
+            
         }
 
         public void AgregarPartida(string nombrejugador, string mazo, string nombrepartida)
@@ -75,9 +75,15 @@ namespace TrabajoPractico.Clases
             
         }
        
-        public List<Partida> ObtenerPartidas()
+        public List<string> ObtenerPartidas()
         {
-            return Partidas.Where(x => x.Estado == EstadoPartida.Disponible).ToList();
+            var Lista = Partidas.Where(x => x.Estado == EstadoPartida.Disponible).ToList();
+            List<string> nombrespartidas = new List<string>();
+            foreach (var item in Lista)
+            {
+                nombrespartidas.Add(item.Nombre);
+            }
+            return nombrespartidas;
         }
        
         public List<Mazo> ObtenerMazos()
@@ -118,7 +124,7 @@ namespace TrabajoPractico.Clases
                                     lista.Add(item);
                                 }
                             }
-                            this.NombreAtributos = lista;
+                            mazo.AtributosMazo = lista;
                         }
                         else
                         {
@@ -156,25 +162,22 @@ namespace TrabajoPractico.Clases
                 return Mazos;
         }
 
-        public List<string> NombreMazos()
+        public Partida BuscarPartidaID(string idConexion)
         {
-            List<string> NombreMazos = new List<string>();
-
-            foreach (var item in Mazos)
+            Partida partida=new Partida();
+            foreach (var item in Partidas)
             {
-                NombreMazos.Add(item.Nombre);
+                foreach (var item2 in item.JugadoresPartida)
+                {
+                    if (item2.IDConexion==idConexion)
+                    {
+                        partida = item;
+                    }
+                }
             }
-
-            return NombreMazos;
+            return partida;
         }
-
-        ///Mazo: Nombre(string), NombreAtributos(string[])
-        ///
-        public List<String> ObtenerNombresAtributos()
-        {
-            return this.NombreAtributos;            
-        }
-
+        
         
  
 
