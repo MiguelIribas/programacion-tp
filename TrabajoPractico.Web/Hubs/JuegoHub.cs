@@ -55,30 +55,62 @@ namespace TrabajoPractico.Web.Hubs
         }
 
         public void Cantar(string idAtributo, string idCarta)
-        {         
-            
+        {
+
             var partida = juego.BuscarPartidaID(Context.ConnectionId);
-            partida.CompararCartas(Context.ConnectionId,idAtributo);
+            partida.CompararCartas(Context.ConnectionId, idAtributo);
+            var jugada = partida.CompararCartas(Context.ConnectionId, idAtributo);
 
-            if (jugada.connectionIdGanador == Context.ConnectionId)
+            if (jugada.IdGanador == Context.ConnectionId)
             {
-                Clients.Caller.ganarMano();
-                Clients.Client(jugada.connectionIdPerdedor).perderMano();
-
+                if (jugada.ResultadoMano == 2 || jugada.ResultadoMano == 3)
+                {
+                    Clients.Caller.ganarManoPorTarjetaRoja();
+                    Clients.Client(jugada.IdPerdedor).perderManoPorTarjetaRoja();
+                }
+                else
+                {
+                    if (jugada.ResultadoMano == 1)
+                    {
+                        Clients.Caller.ganarManoPorTarjetaAmarilla();
+                        Clients.Client(jugada.IdPerdedor).perderMano();
+                    }
+                    else
+                    {
+                        Clients.Caller.ganarMano();
+                        Clients.Client(jugada.IdPerdedor).perderMano();
+                    }
+                }
+            
             }
             else
             {
-                Clients.Client(jugada.connectionIdGanador).ganarMano();
-                Clients.Caller.perderMano();
+                if (jugada.ResultadoMano == 2 || jugada.ResultadoMano == 3)
+                {
+                    Clients.Caller.ganarManoPorTarjetaRoja();
+                    Clients.Client(jugada.IdPerdedor).perderManoPorTarjetaRoja();
+                }
+                else
+                {
+                    if (jugada.ResultadoMano == 1)
+                    {
+                        Clients.Caller.ganarManoPorTarjetaAmarilla();
+                        Clients.Client(jugada.IdPerdedor).perderMano();
+                    }
+                    else
+                    {
 
+                        Clients.Caller.ganarMano();
+                        Clients.Client(jugada.IdPerdedor).perderMano();
+                    }
+                }
             }
-            if (jugada.finalizoJuego)
+            if (jugada.FinalizaPartida)
             {
                 Clients.Caller.ganar();
-                Clients.Client(jugada.connectionIdPerdedor).perder();
+                Clients.Client(jugada.IdPerdedor).perder();
             }
         }
-
 
     }
     }

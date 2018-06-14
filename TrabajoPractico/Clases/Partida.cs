@@ -107,8 +107,7 @@ namespace TrabajoPractico.Clases
                     jugadorGanador.CartasJugador.Add(jugadorPerdedor.CartasJugador[1]);
                     jugadorPerdedor.CartasJugador.RemoveAt(0);
                     break;
-                case 4:
-                    break;
+               
                 default:
                     break;
             }
@@ -140,14 +139,10 @@ namespace TrabajoPractico.Clases
                             JugadorGanador = jugador1.IDConexion;
                             resultado = 2;
                             this.MoverCartas(JugadorGanador,resultado);
-
-
-                            ///HAAAAAAAAAAACERRRRRRRRR
-                            ///
-
-                            //Res.IdGanador = JugadorGanador;
-                            //Res.ResultadoMano = resultado;
-                            //Res.IdPerdedor = jugador2.IDConexion;
+                            
+                            Res.IdGanador = JugadorGanador;
+                            Res.ResultadoMano = resultado;
+                            Res.IdPerdedor = jugador2.IDConexion;
                             break;
 
                         case TipoCarta.Amarilla: //J1: Carta roja, J2: Carta amarilla --> El J1 le roba al J2 la primera del mazo, y se eliminan las cartas roja y amarilla.
@@ -159,10 +154,7 @@ namespace TrabajoPractico.Clases
                             this.MoverCartas(JugadorGanador, resultado);
                             break;
 
-                        case TipoCarta.Especial:
-                            resultado = 4;
-                            break;
-
+                      
                     }
                     break;
 
@@ -187,9 +179,7 @@ namespace TrabajoPractico.Clases
                             this.MoverCartas(JugadorGanador, resultado);
                             break;
 
-                        case TipoCarta.Especial:
-                            resultado = 4;
-                            break;
+                       
                     }
                     break;
 
@@ -227,6 +217,10 @@ namespace TrabajoPractico.Clases
                                 //jugador2.CartasJugador.RemoveAt(0);
                                 JugadorGanador = jugador1.IDConexion;
                                 this.MoverCartas(JugadorGanador, resultado);
+
+                                Res.IdGanador = JugadorGanador;
+                                Res.ResultadoMano = resultado;
+                                Res.IdPerdedor = jugador2.IDConexion;
                             }
                             else
                             {
@@ -236,6 +230,10 @@ namespace TrabajoPractico.Clases
                                 //jugador1.CartasJugador.RemoveAt(0);
                                 JugadorGanador = jugador2.IDConexion;
                                 this.MoverCartas(JugadorGanador, resultado);
+
+                                Res.IdGanador = JugadorGanador;
+                                Res.ResultadoMano = resultado;
+                                Res.IdPerdedor = jugador1.IDConexion;
                             }
 
                             break;
@@ -260,29 +258,18 @@ namespace TrabajoPractico.Clases
                             this.MoverCartas(JugadorGanador, resultado);
                             break;
 
-                        case TipoCarta.Especial:
-                            //
-                            break;
                     }
                     break;
 
-                case TipoCarta.Especial:
-                    switch (Carta2.Tipo)
-                    {
-                        case TipoCarta.Normal:
-                            resultado = 4;
-                            break;
-                        case TipoCarta.Roja:
-                            resultado = 4;
-                            break;
-                        case TipoCarta.Amarilla:
-                            resultado = 4;
-                            break;
-                    }
-                    break;
+              
             }
 
-            return JugadorGanador;
+            if (jugador1.CartasJugador.Count==0 || jugador2.CartasJugador.Count==0)
+            {
+                Res.FinalizaPartida = true;
+            }
+
+            return Res;
 
         }
 
@@ -338,6 +325,8 @@ namespace TrabajoPractico.Clases
             return NombreCartas;
 
         }
+
+        
 
     }
 }

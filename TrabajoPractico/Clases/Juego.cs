@@ -19,9 +19,8 @@ namespace TrabajoPractico.Clases
         {
             this.Mazos = new List<Mazo>();
             this.Jugadores = new List<Jugador>();
-            this.Mazos = ObtenerMazos();
-            this.Partidas = new List<Partida>();
-            
+            this.ObtenerMazos();
+            this.Partidas = new List<Partida>();         
         }
 
         public void AgregarPartida(string nombrejugador, string mazo, string nombrepartida)
@@ -86,7 +85,7 @@ namespace TrabajoPractico.Clases
             return nombrespartidas;
         }
        
-        public List<Mazo> ObtenerMazos()
+        public void ObtenerMazos()
         {                         
             var deckFolder = Directory.GetDirectories(@"E:\Programacion II\TrabajoPractico\TrabajoPractico.Web\Mazos"); //////PONER DIRECCION
 
@@ -150,16 +149,25 @@ namespace TrabajoPractico.Clases
                                     valor = valor + 1;
                                 }
                             }
-
+        
                             mazo.Cartas.Add(carta);
                         }
                      }
                 }
-                    Mazos.Add(mazo);
+                Carta cartaamarilla = new Carta();
+                cartaamarilla.Tipo = TipoCarta.Amarilla;
+                cartaamarilla.Nombre = "Amarilla";
+                Carta cartaroja = new Carta();
+                cartaroja.Tipo = TipoCarta.Roja;
+                cartaroja.Nombre = "Roja";
+                mazo.Cartas.Add(cartaamarilla);
+                mazo.Cartas.Add(cartaroja);
+
+                this.Mazos.Add(mazo);
                 }
               
                
-                return Mazos;
+                
         }
 
         public Partida BuscarPartidaID(string idConexion)
@@ -177,9 +185,19 @@ namespace TrabajoPractico.Clases
             }
             return partida;
         }
-        
-        
- 
+
+        public List<string> NombreMazos()
+        {
+            List<string> NombreMazos = new List<string>();
+
+            foreach (var item in Mazos)
+            {
+                NombreMazos.Add(item.Nombre);
+            }
+
+            return NombreMazos;
+        }
+
 
     }
 }
