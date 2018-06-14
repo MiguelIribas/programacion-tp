@@ -13,15 +13,12 @@ namespace TrabajoPractico.Clases
         public List<Partida> Partidas { get; set; }
         public List<Mazo> Mazos { get; set; }
         public List<Jugador> Jugadores { get; set; }
-        //public List<string> NombreAtributos { get; set; }
 
         public Juego()
         {
-            this.Mazos = new List<Mazo>();
             this.Jugadores = new List<Jugador>();
-            this.Mazos = ObtenerMazos();
+            this.Mazos = this.ObtenerMazos();
             this.Partidas = new List<Partida>();
-            
         }
 
         public void AgregarPartida(string nombrejugador, string mazo, string nombrepartida)
@@ -75,31 +72,24 @@ namespace TrabajoPractico.Clases
             
         }
        
-        public List<string> ObtenerPartidas()
+        public List<Partida> ObtenerPartidas()
         {
-            var Lista = Partidas.Where(x => x.Estado == EstadoPartida.Disponible).ToList();
-            List<string> nombrespartidas = new List<string>();
-            foreach (var item in Lista)
-            {
-                nombrespartidas.Add(item.Nombre);
-            }
-            return nombrespartidas;
+            return Partidas.Where(x => x.Estado == EstadoPartida.Disponible).ToList();
         }
        
         public List<Mazo> ObtenerMazos()
-        {                         
-            var deckFolder = Directory.GetDirectories(@"E:\Programacion II\TrabajoPractico\TrabajoPractico.Web\Mazos"); //////PONER DIRECCION
-
+        {
+            var deckFolder = Directory.GetDirectories(@"E:\Mis documentos\agos\Mazos"); //////PONER DIRECCION
+            
             foreach (var deck in deckFolder)
             {
                 var lines = File.ReadAllLines(deck + "\\informacion.txt"); /// Ver como es el txt y que adentro no tenga espacio
                 int contador = 0;
-                List<string> lista = new List<string>();
+                List<Atributo> lista = new List<Atributo>();
                 Mazo mazo = new Mazo();
 
                 foreach (var line in lines)
                 {
-
                     var array = line.Split('|');
 
                     if (contador == 0)
@@ -112,19 +102,18 @@ namespace TrabajoPractico.Clases
                     {
                         if (contador == 1)
                         {
-                            var atributos = array;
+                            var atributos = array; 
                             contador = contador + 1;
-                            var posicion = -1;
 
                             foreach (var item in atributos)
                             {
-                                posicion += 1;
-                                if (posicion > 1)
-                                {
-                                    lista.Add(item);
-                                }
+                                Atributo nuevo = new Atributo();
+                                nuevo.Nombre = item;
+
+                                lista.Add(nuevo);
+
                             }
-                            mazo.AtributosMazo = lista;
+
                         }
                         else
                         {
@@ -132,15 +121,8 @@ namespace TrabajoPractico.Clases
                             carta.Codigo = array[0];
                             carta.Nombre = array[1];
                             carta.Tipo = TipoCarta.Normal;
-
+                            carta.Atributos = lista;
                             var valor = 2;
-
-                            foreach (var item in lista)
-                            {
-                                Atributo atributo = new Atributo();
-                                atributo.Nombre = item;
-                                carta.Atributos.Add(atributo);
-                            }
 
                             foreach (var item in carta.Atributos)
                             {
@@ -149,37 +131,20 @@ namespace TrabajoPractico.Clases
                                     item.Valor = Convert.ToDecimal(array[valor]);
                                     valor = valor + 1;
                                 }
+                                
                             }
 
                             mazo.Cartas.Add(carta);
                         }
-                     }
-                }
-                    Mazos.Add(mazo);
-                }
-              
-               
-                return Mazos;
-        }
-
-        public Partida BuscarPartidaID(string idConexion)
-        {
-            Partida partida=new Partida();
-            foreach (var item in Partidas)
-            {
-                foreach (var item2 in item.JugadoresPartida)
-                {
-                    if (item2.IDConexion==idConexion)
-                    {
-                        partida = item;
                     }
                 }
+
+                Mazos.Add(mazo);
+                
             }
-            return partida;
+
+            return Mazos;
         }
-        
-        
- 
 
     }
 }

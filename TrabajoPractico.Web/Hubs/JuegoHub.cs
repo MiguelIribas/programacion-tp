@@ -31,54 +31,41 @@ namespace TrabajoPractico.Web.Hubs
             var partidaAUnirse = juego.BuscarPartidaPorNombre(partida);
             var jugador1 = partidaAUnirse.JugadoresPartida.First();
             var jugador2 = partidaAUnirse.JugadoresPartida.Last();
-           
-            var DatosJugador1 = partidaAUnirse.ObtenerCartas(jugador1.IDConexion);
-            var DatosJugador2 = partidaAUnirse.ObtenerCartas(jugador2.IDConexion);
 
-            Clients.Client(jugador1.IDConexion).dibujarTablero(new { Cartas= DatosJugador1, Nombre= jugador1.Nombre },
-                                                                new { Cartas=DatosJugador2, Nombre=jugador2.Nombre },
-                                                                new { Nombre=partidaAUnirse.Mazo.Nombre, NombreAtributos=partidaAUnirse.Mazo.AtributosMazo });
-            Clients.Client(jugador2.IDConexion).dibujarTablero(new { Cartas = DatosJugador1, Nombre = jugador1.Nombre },
-                                                                new { Cartas = DatosJugador2, Nombre = jugador2.Nombre },
-                                                                new { Nombre = partidaAUnirse.Mazo.Nombre, NombreAtributos = partidaAUnirse.Mazo.AtributosMazo });
+            Clients.Client(jugador1.IDConexion).dibujarTablero(jugador1, jugador2, partidaAUnirse.Mazo);
+            Clients.Client(jugador2.IDConexion).dibujarTablero(jugador1, jugador2, partidaAUnirse.Mazo);
         }
 
         public void ObtenerPartidas()
         {
-            Clients.Caller.agregarPartidas(juego.ObtenerPartidas());
+            //Clients.Caller.agregarPartidas(partidas);
         }
 
         public void ObtenerMazos()
         {
-            Clients.Caller.agregarMazos(juego.NombreMazos());
-            
+            Clients.Caller.agregarMazos(new List<string>() { "Mazo 1" });
         }
 
         public void Cantar(string idAtributo, string idCarta)
-        {         
-            
-            var partida = juego.BuscarPartidaID(Context.ConnectionId);
-            partida.CompararCartas(Context.ConnectionId,idAtributo);
+        {            
+            //if (jugada.connectionIdGanador == Context.ConnectionId)
+            //{
+            //    Clients.Caller.ganarMano(resultado, false);
+            //    Clients.Client(jugada.connectionIdPerdedor).perderMano(resultado, false);
 
-            if (jugada.connectionIdGanador == Context.ConnectionId)
-            {
-                Clients.Caller.ganarMano();
-                Clients.Client(jugada.connectionIdPerdedor).perderMano();
+            //}
+            //else
+            //{
+            //    Clients.Client(jugada.connectionIdGanador).ganarMano(resultado, false);
+            //    Clients.Caller.perderMano(resultado, false);
 
-            }
-            else
-            {
-                Clients.Client(jugada.connectionIdGanador).ganarMano();
-                Clients.Caller.perderMano();
-
-            }
-            if (jugada.finalizoJuego)
-            {
-                Clients.Caller.ganar();
-                Clients.Client(jugada.connectionIdPerdedor).perder();
-            }
+            //}
+            //if (jugada.finalizoJuego)
+            //{
+            //    Clients.Caller.ganar();
+            //    Clients.Client(jugada.connectionIdPerdedor).perder();
+            //}
         }
-
-
+        
     }
-    }
+}

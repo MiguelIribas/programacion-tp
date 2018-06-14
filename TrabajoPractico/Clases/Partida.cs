@@ -19,12 +19,6 @@ namespace TrabajoPractico.Clases
         public List<Jugador> JugadoresPartida { get; set; }
         public Mazo Mazo { get; set; }
 
-
-        public Partida()
-        {
-            this.JugadoresPartida = new List<Jugador>();
-        }
-
         public Partida CrearPartida(Jugador Jugador1, string Nombre, Mazo Mazo, int IDPartida)
         {
             this.IDPartida = IDPartida;
@@ -115,14 +109,12 @@ namespace TrabajoPractico.Clases
 
         }
 
-        public Resultado CompararCartas(string IDConexion, string Atributo)
+        private string CompararCartas(string IDConexion, string Atributo)
         {
             var jugador1 = this.JugadoresPartida.Where(x => x.IDConexion == IDConexion).Single();
             var jugador2 = this.JugadoresPartida.Where(x => x.IDConexion != IDConexion).Single();
             var Carta1 = jugador1.CartasJugador.First();
             var Carta2 = jugador2.CartasJugador.First();
-            Resultado Res = new Resultado();
-
             int resultado = 0;
             string JugadorGanador = ""; //En esta variable se va a guardar al jugador que gana en cada caso, no deja retornar antes del break.
 
@@ -140,14 +132,6 @@ namespace TrabajoPractico.Clases
                             JugadorGanador = jugador1.IDConexion;
                             resultado = 2;
                             this.MoverCartas(JugadorGanador,resultado);
-
-
-                            ///HAAAAAAAAAAACERRRRRRRRR
-                            ///
-
-                            //Res.IdGanador = JugadorGanador;
-                            //Res.ResultadoMano = resultado;
-                            //Res.IdPerdedor = jugador2.IDConexion;
                             break;
 
                         case TipoCarta.Amarilla: //J1: Carta roja, J2: Carta amarilla --> El J1 le roba al J2 la primera del mazo, y se eliminan las cartas roja y amarilla.
@@ -297,47 +281,32 @@ namespace TrabajoPractico.Clases
             var jugador1 = this.JugadoresPartida.First();
             var jugador2 = this.JugadoresPartida.Last();
             this.RepartirMazo(this.Mazo, jugador1, jugador2);
-            //var atributoElegido = "";
-            //int primerJuego = 1;
-            //var ganador = "";
+            var atributoElegido = "";
+            int primerJuego = 1;
+            var ganador = "";
 
-            //while (this.Estado == EstadoPartida.Ocupada)
-            //{
-            //    if (jugador1.CartasJugador.Count == Mazo.Cartas.Count)
-            //    {
-            //        this.Estado = EstadoPartida.Finalizada;
-            //    }
-            //    else
-            //    {
-            //        if (primerJuego == 1)
-            //        {
-            //            //cantar atributo
-            //            ganador = this.CompararCartas(jugador1.IDConexion, atributoElegido);
-            //            primerJuego = 2;
-            //        }
-            //        else
-            //        {
-            //            //cantar atributo
-            //            ganador = this.CompararCartas(ganador, atributoElegido);
-            //        }
-            //    }
-            //}
+            while (this.Estado == EstadoPartida.Ocupada)
+            {
+                if (jugador1.CartasJugador.Count == Mazo.Cartas.Count)
+                {
+                    this.Estado = EstadoPartida.Finalizada;
+                }
+                else
+                {
+                    if (primerJuego == 1)
+                    {
+                        //cantar atributo
+                        ganador = this.CompararCartas(jugador1.IDConexion, atributoElegido);
+                        primerJuego = 2;
+                    }
+                    else
+                    {
+                        //cantar atributo
+                        ganador = this.CompararCartas(ganador, atributoElegido);
+                    }
+                }
+            }
             //mostrar cartas graficamente y atributos
         }
-
-        public List<Carta> ObtenerCartas(string IdJugador)
-        {
-            List<Carta> NombreCartas = new List<Carta>();
-
-            var cartasjugador = this.JugadoresPartida.Where(x => x.IDConexion == IdJugador).Single().CartasJugador;
-
-            foreach (var item in cartasjugador)
-            {
-                NombreCartas.Add(item);
-            }
-            return NombreCartas;
-
-        }
-
     }
 }

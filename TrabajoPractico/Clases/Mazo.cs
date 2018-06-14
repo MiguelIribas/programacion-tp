@@ -10,14 +10,12 @@ namespace TrabajoPractico.Clases
     {
         public int IDMazo { get; set; }
         public string Nombre { get; set; }
-        public List<Carta> Cartas { get; set; }
-        public List<string> AtributosMazo { get; set; }
+        public List<Carta> Cartas { get; set; } 
 
         public Mazo()
         {
             this.Cartas = new List<Carta>();
-            this.AtributosMazo = new List<string>();
-
+            
         }
     }
 }
