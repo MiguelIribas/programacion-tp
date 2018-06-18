@@ -3,27 +3,6 @@ var baraja = {},
     backCard = {};
 var ganoMano = true;
 
-function ganarMano() {
-    deshabilitarJuego();
-    baraja2.rotateCard();
-
-    baraja.setWinner();
-
-    setTimeout(function () {
-        var wonCard = baraja2.remove();
-
-        baraja.next();
-
-        setTimeout(function () {
-            baraja.addWonCard(wonCard, true);
-            setTimeout(function () {
-                ganoMano = true;
-                mostrarCartasJugador2();
-                habilitarJuego();
-            }, 1500);
-        }, 1500);
-    }, 2000);
-};
 
 function ganarManoPorTarjeta(roja) {
     deshabilitarJuego();
@@ -68,6 +47,7 @@ function ganarManoPorTarjetaExtra() {
         }, 1500);
     }, 2000);
 };
+
 function perderManoPorTarjeta(roja) {
     deshabilitarJuego();
     baraja2.rotateCard();
@@ -105,6 +85,28 @@ function perderManoPorTarjetaExtra() {
                 ganoMano = false;
                 mostrarCartasJugador2();
                 deshabilitarJuego();
+            }, 1500);
+        }, 1500);
+    }, 2000);
+};
+
+function ganarMano() {
+    deshabilitarJuego();
+    baraja2.rotateCard();
+
+    baraja.setWinner();
+
+    setTimeout(function () {
+        var wonCard = baraja2.remove();
+
+        baraja.next();
+
+        setTimeout(function () {
+            baraja.addWonCard(wonCard, true);
+            setTimeout(function () {
+                ganoMano = true;
+                mostrarCartasJugador2();
+                habilitarJuego();
             }, 1500);
         }, 1500);
     }, 2000);

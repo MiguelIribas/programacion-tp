@@ -8,6 +8,13 @@ using System.Threading.Tasks;
 
 namespace TrabajoPractico.Clases
 {
+    public class PartidaPoc
+    {
+        public string Nombre { get; set; }
+        public string Mazo { get; set; }
+        public string Usuario { get; set; }
+    }
+
     public class Juego
     {
         public List<Partida> Partidas { get; set; }
@@ -38,15 +45,20 @@ namespace TrabajoPractico.Clases
         {
             var Jugador2 = Jugadores.Where(x => x.Nombre == NombreJugador).Single();
 
-            foreach (var item in Partidas)
+            if (Jugador2 != null)
             {
-                if (item.Nombre == NombrePartida && item.Estado==EstadoPartida.Disponible) 
+                foreach (var item in Partidas)
                 {
-                    item.Estado = EstadoPartida.Ocupada;
-                    item.JugadoresPartida.Add(Jugador2);                    
-                    this.ValidarPartida(item);
+                    if (item.Nombre == NombrePartida && item.Estado == EstadoPartida.Disponible)
+                    {
+                        if (item.JugadoresPartida.Count == 1)
+                        {
+                            item.Estado = EstadoPartida.Ocupada;
+                            item.JugadoresPartida.Add(Jugador2);
+                            this.ValidarPartida(item);
+                        }
+                    }
                 }
-                
             }
         }
 
@@ -69,18 +81,27 @@ namespace TrabajoPractico.Clases
         
         public void CrearJugador (string Nombre,string IDConexion)
         {
-            var Jugador = new Jugador() { IDConexion = IDConexion, Nombre = Nombre, IDJugador = Jugadores.Count + 1 };
-            Jugadores.Add(Jugador);
-            
+            if (Nombre != "")
+            {
+                var Jugador = new Jugador() { IDConexion = IDConexion, Nombre = Nombre, IDJugador = Jugadores.Count + 1 };
+                Jugadores.Add(Jugador);
+            }
         }
        
-        public List<string> ObtenerPartidas()
+        public List<PartidaPoc> ObtenerPartidas()
         {
             var Lista = Partidas.Where(x => x.Estado == EstadoPartida.Disponible).ToList();
-            List<string> nombrespartidas = new List<string>();
+            List<PartidaPoc> nombrespartidas = new List<PartidaPoc>();
+           
             foreach (var item in Lista)
             {
-                nombrespartidas.Add(item.Nombre);
+                var usuario = item.JugadoresPartida.First();
+                PartidaPoc part = new PartidaPoc();
+                part.Mazo = item.Mazo.Nombre;
+                part.Nombre = item.Nombre;
+                part.Usuario = usuario.Nombre;
+                nombrespartidas.Add(part);
+                
             }
             return nombrespartidas;
         }
@@ -157,9 +178,11 @@ namespace TrabajoPractico.Clases
                 Carta cartaamarilla = new Carta();
                 cartaamarilla.Tipo = TipoCarta.Amarilla;
                 cartaamarilla.Nombre = "Amarilla";
+                cartaamarilla.Codigo = "amarilla";
                 Carta cartaroja = new Carta();
                 cartaroja.Tipo = TipoCarta.Roja;
                 cartaroja.Nombre = "Roja";
+                cartaroja.Codigo = "roja";
                 mazo.Cartas.Add(cartaamarilla);
                 mazo.Cartas.Add(cartaroja);
 
