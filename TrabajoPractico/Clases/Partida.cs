@@ -164,8 +164,8 @@ namespace TrabajoPractico.Clases
                     {
                         case TipoCarta.Normal: // J1: Carta amarilla, J2: Carta Normal --> El J1 le roba al J2 la carta que tiene, y elimina la carta amarilla.
 
-                            Res.IdGanador = jugadorPerdedor.IDConexion;
-                            Res.IdPerdedor = jugadorGanador.IDConexion;
+                            Res.IdGanador = jugadorGanador.IDConexion;
+                            Res.IdPerdedor = jugadorPerdedor.IDConexion;
                             Res.ResultadoMano = 1;
                             this.MoverCartas(jugadorGanador, jugadorPerdedor);
 
@@ -206,7 +206,6 @@ namespace TrabajoPractico.Clases
                                 {
                                     valorJPerdedor = item.Valor;
                                 }
-
                             }
 
                             if (valorJGanador >= valorJPerdedor)
@@ -237,9 +236,9 @@ namespace TrabajoPractico.Clases
                         case TipoCarta.Amarilla: //J1: Carta normal, J2: Carta amarilla --> El J2 le roba al J1 la carta que tiene, y se elimina la carta amarilla.
 
                             Res.IdGanador = jugadorPerdedor.IDConexion;
-                            Res.IdPerdedor = jugadorPerdedor.IDConexion;
+                            Res.IdPerdedor = jugadorGanador.IDConexion;
                             Res.ResultadoMano = 1;
-                            this.MoverCartas(jugadorGanador, jugadorPerdedor);
+                            this.MoverCartas(jugadorPerdedor, jugadorGanador);
 
                             break;
                     }
